@@ -10,3 +10,5 @@ git add .
 git commit -m "$MENSAGEM"
 git branch -M main
 git push -u origin main
+
+#./commit.sh ""
