@@ -473,22 +473,17 @@ def excluir_aluno(id_aluno):
         conexao = conectar()
         cursor = conexao.cursor()
 
+        # 1. Remove os empréstimos ligados ao aluno
+        cursor.execute("DELETE FROM emprestimo WHERE id_aluno = %s", (id_aluno,))
 
-        cursor.execute(
-            "DELETE FROM aluno WHERE id_aluno = %s",
-            (id_aluno,)
-        )
-
+        # 2. Remove o aluno
+        cursor.execute("DELETE FROM aluno WHERE id_aluno = %s", (id_aluno,))
 
         conexao.commit()
-
-
         cursor.close()
         conexao.close()
 
-
         return redirect("/alunos")
-
 
     except Exception as erro:
         return f"Erro ao excluir aluno: {erro}"
@@ -571,22 +566,17 @@ def excluir_livro(id_livro):
         conexao = conectar()
         cursor = conexao.cursor()
 
+        # 1. Remove os empréstimos ligados ao livro
+        cursor.execute("DELETE FROM emprestimo WHERE id_livro = %s", (id_livro,))
 
-        cursor.execute(
-            "DELETE FROM livro WHERE id_livro = %s",
-            (id_livro,)
-        )
-
+        # 2. Remove o livro
+        cursor.execute("DELETE FROM livro WHERE id_livro = %s", (id_livro,))
 
         conexao.commit()
-
-
         cursor.close()
         conexao.close()
 
-
         return redirect("/livros")
-
 
     except Exception as erro:
         return f"Erro ao excluir livro: {erro}"
