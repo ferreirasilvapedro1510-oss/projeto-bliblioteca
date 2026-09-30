@@ -1,8 +1,18 @@
 {% extends "base.html" %}
 
+
 {% block conteudo %}
 
+
 <h2>Empréstimos Cadastrados</h2>
+
+
+<p>
+    {% if session.perfil in ['admin', 'bibliotecario'] %}
+        <a href="/emprestimos/novo">Registrar novo empréstimo</a>
+    {% endif %}
+</p>
+
 
 <form method="GET" action="/emprestimos">
 
@@ -35,11 +45,6 @@
 
 
 <br>
-    
-
-<p>
-    <a href="/emprestimos/novo">Registrar novo empréstimo</a>
-</p>
 
 
 <table>
@@ -57,9 +62,16 @@
         </tr>
     </thead>
 
+
     <tbody>
+
+
         {% for emprestimo in emprestimos %}
+
+
         <tr>
+
+
             <td>{{ emprestimo.id_emprestimo }}</td>
             <td>{{ emprestimo.aluno }}</td>
             <td>{{ emprestimo.livro }}</td>
@@ -68,16 +80,29 @@
             <td>{{ emprestimo.data_prevista_devolucao }}</td>
             <td>{{ emprestimo.data_devolucao }}</td>
             <td>{{ emprestimo.status }}</td>
+
+
             <td>
-                {% if emprestimo.status == 'Emprestado' %}
-                    <a href="/emprestimos/devolver/{{ emprestimo.id_emprestimo }}">Devolver</a>
+                {% if session.perfil in ['admin', 'bibliotecario'] and emprestimo.status == 'Emprestado' %}
+                    <a href="/emprestimos/devolver/{{ emprestimo.id_emprestimo }}">
+                        Devolver
+                    </a>
+                {% elif emprestimo.status == 'Emprestado' %}
+                    Emprestado
                 {% else %}
                     Devolvido
                 {% endif %}
             </td>
+
+
         </tr>
+
+
         {% endfor %}
+
+
     </tbody>
 </table>
+
 
 {% endblock %}
