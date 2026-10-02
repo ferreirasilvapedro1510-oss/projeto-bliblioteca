@@ -16,50 +16,39 @@
 
     <header>
         <div class="topo">
-            <h1>Sistema Biblioteca Escolar</h1>
-            <p>Projeto Integrador - 1º Ano</p>
-
-
+            <div>
+                <h1>Sistema Biblioteca Escolar</h1>
+                <p>Projeto Integrador - 1º Ano</p>
+            </div>
+    
             {% if session.nome %}
-                <p>Usuário logado: {{ session.nome }} | Perfil: {{ session.perfil }}</p>
+                <div class="usuario-info">
+                    {{ session.nome }} • <strong>{{ session.perfil | capitalize }}</strong>
+                </div>
             {% endif %}
         </div>
-
-
+    
         <nav>
             <a href="/">Início</a>
-
-
+    
             {% if session.perfil in ['admin', 'bibliotecario', 'aluno', 'professor'] %}
                 <a href="/alunos">Alunos</a>
-            {% endif %}
-
-
-            {% if session.perfil in ['admin', 'bibliotecario', 'aluno', 'professor'] %}
                 <a href="/livros">Livros</a>
             {% endif %}
-
-
+    
             {% if session.perfil in ['admin', 'bibliotecario'] %}
                 <a href="/bibliotecarios">Bibliotecários</a>
             {% endif %}
-
-
+    
             {% if session.perfil in ['admin', 'bibliotecario', 'aluno', 'professor'] %}
                 <a href="/emprestimos">Empréstimos</a>
-            {% endif %}
-
-
-            {% if session.perfil in ['admin', 'bibliotecario', 'aluno', 'professor'] %}
                 <a href="/emprestimos/atrasados">Atrasados</a>
             {% endif %}
-
-
+    
             {% if session.perfil == 'admin' %}
                 <a href="/usuarios">Usuários</a>
             {% endif %}
-
-
+    
             <a href="/logout">Sair</a>
         </nav>
     </header>
